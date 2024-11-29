@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word and Char Counter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col justify-center items-center h-[80vh] bg-slate-800">
+    <div>
+        <h1 class="text-3xl text-white font-bold text-center pb-4">Word And Char Counter</h1>
+        <textarea class="outline-none border-x-2 border-t-2 border-blue-600 rounded-t-xl text-lg text-gray-700 px-2 py-2" name="textarea" id="textbox" cols="60" rows="10" placeholder="start typing or copy paste your document..."></textarea>
+        <p class="bg-blue-600 text-white text-2xl font-bold text-center relative bottom-2 py-1 pb-2 rounded-b-xl">
+            <span id="word">0</span> words and
+            <span id="char">0</span> characters
+        </p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

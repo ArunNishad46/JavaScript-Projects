@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript CRUD Operation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .paginate-btn.active{
+            background: green;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="bg-slate-300">
+    <div class="bg-slate-800 py-3 px-6">
+        <h1 class="text-2xl text-gray-200 font-bold uppercase text-center underline mx-auto">Student CRUD Operation</h1>
+        <div class="flex justify-between items-center pt-4">
+            <input type="search" placeholder="search..." class=" border border-gray-300 rounded-md p-1 w-1/2 focus:outline-none focus:ring-2 focus-within:ring-blue-600" id="search">
+            <label for="search" class="relative right-[20%] sm:right-[15%] md:right-[10%] lg:right-[15%] text-green-600 text-xl"><i class="fas fa-search"></i></label>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-100 bg-red-700 px-4 py-1 rounded-md sm:flex md:flex hover:scale-105 hover:bg-red-600 duration-100" id="delete-all-btn">
+                    <i class="fas fa-trash text-xl sm:pr-2 md:pr-2"></i>
+                    <p class="hidden text-lg font-bold sm:block md:hidden">All</p>
+                    <p class="hidden text-lg font-bold md:block">Delete All</p>
+                </button>
+                <button class="text-gray-100 bg-green-700 px-4 py-1 rounded-md sm:flex md:flex hover:scale-105 hover:bg-green-600 duration-100" id="add-btn">
+                    <i class="fas fa-square-plus text-xl sm:pr-2 md:pr-2"></i>
+                    <p class="hidden text-lg font-bold sm:block md:hidden">New</p>
+                    <p class="hidden text-lg font-bold md:block">Add Student</p>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- student data table -->
+    <div class="overflow-x-auto shadow-xl p-6 bg-white">
+        <table class="table-auto w-full mb-4">
+            <thead class="text-blue-900 border-b-2 border-gray-400">
+                <tr>
+                    <th class="py-2 px-4">#S.No</th>
+                    <th class="py-2 px-4">Profile</th>
+                    <th class="py-2 px-4">Name</th>
+                    <th class="py-2 px-4">Roll</th>
+                    <th class="py-2 px-4">Email</th>
+                    <th class="py-2 px-4">DOB</th>
+                    <th class="py-2 px-4">Mobile</th>
+                    <th class="py-2 px-4">City</th>
+                    <th class="py-2 px-4">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-center" id="table-dataList">
+                <tr class="odd:bg-slate-100">
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex float-end">
+            <button disabled class="bg-blue-700 text-lg text-white py-1 px-2 rounded-md mr-1" id="prev-btn">prev</button>
+            <div class="pagination-btn"></div>
+            <button class="bg-blue-700 text-lg text-white py-1 px-2 rounded-md ml-1" id="next-btn">next</button>
+        </div>
+    </div>
+    
+    <!-- student details form  -->
+    <div class="hidden bg-gray-200 shadow-xl rounded-lg h-auto w-[80%] absolute top-[20%] right-[10%] lg:w-[50%] lg:right-[25%]" id="student-form">
+        <div class="flex justify-between items-center py-2 px-6 bg-green-700 text-gray-100 text-lg font-bold rounded-t-lg">
+            <h1>Add New Student</h1>
+            <button class="bg-gray-100 text-slate-700 px-2 rounded-sm hover:bg-red-600 hover:text-gray-100 duration-500" id="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form action="#" class="flex flex-col justify-center items-center py-4 px-6">
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="name" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">Name</label>
+                <input type="text" name="name" id="name" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required>
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="roll_no" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">Roll</label>
+                <input type="number" name="roll_no" id="roll_no" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required>
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="email" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">Email</label>
+                <input type="email" name="email" id="email" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required>
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="dob" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">DOB</label>
+                <input type="date" name="dob" id="dob" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required>
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="mobile" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">Mobile</label>
+                <input type="number" name="mobile" id="mobile" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required maxlength="10">
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="city" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md">City</label>
+                <input type="text" name="city" id="city" class="w-full text-md focus:outline-none pl-2 py-1 rounded-r-md focus:ring-1 focus-within:ring-blue-600" required>
+            </div>
+            <div class="mb-4 flex justify-center items-center border border-gray-400 rounded-md outline-none w-full">
+                <label for="city" class="text-md text-gray-700 font-medium bg-slate-300 px-2 py-1 rounded-l-md w-[75%] sm:w-[35%] md:w-[30%]">Choose File</label>
+                <input type="file" name="profile" id="profile" class="bg-white w-full text-md focus:outline-none pl-2 py-1 rounded-r-md file:border-none file:hidden focus:ring-1 focus-within:ring-blue-600">
+            </div>
+            <div class="mb-1 flex justify-end items-center gap-2 w-full">
+                <button class="bg-red-700 text-lg font-medium text-gray-100 py-1 px-6 rounded-md duration-100" disabled id="update-btn">Update</button>
+                <button class="bg-green-700 text-lg font-medium text-gray-100 py-1 px-6 rounded-md hover:scale-105 hover:bg-green-600 duration-100" id="submit-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
